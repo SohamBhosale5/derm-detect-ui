@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OnboardingScreens2">
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/ViewPage"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        ></androidx.viewpager.widget.ViewPager>
+
+    <LinearLayout
+        android:id="@+id/dots_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="200dp"
+        android:layout_marginLeft="200dp"
+        android:gravity="center"
+        android:layout_marginTop="600dp"
+        android:layout_marginEnd="210dp"
+        android:layout_marginRight="210dp"
+        android:orientation="horizontal"></LinearLayout>
+
+    <Button
+        android:id="@+id/ButtonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ViewPage"
+        android:layout_marginTop="50dp"
+        android:text="Back"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"></Button>
+
+    <Button
+        android:id="@+id/ButtonNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ViewPage"
+        android:layout_marginTop="50dp"
+        android:text="Next"
+        android:textStyle="bold"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@id/ButtonBack"
+        android:layout_marginLeft="210dp"></Button>
+
+
+</RelativeLayout>
