@@ -33,6 +33,6 @@
         android:inputType="textMultiLine"
         android:singleLine="false"
         android:maxLines="4"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="70dp"
         android:gravity="center"></TextView>
 </RelativeLayout>

@@ -25,9 +25,9 @@
 
     <fragment
         android:id="@+id/nav_hospitals"
-        android:name="com.skin.skinapp2.ui.hospital.HospitalFragment"
+        android:name="com.skin.skinapp2.ui.hospital.MapsFragment"
         android:label="Hosptial"
-        tools:layout="@layout/hospital_fragment"/>
+        tools:layout="@layout/fragment_maps"/>
 
     <fragment
         android:id="@+id/nav_about"

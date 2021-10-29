@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1037369749616",
+    "project_id": "dermdetect-329314",
+    "storage_bucket": "dermdetect-329314.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037369749616:android:35b6258ba89ea62afb84b5",
+        "android_client_info": {
+          "package_name": "com.skin.skinapp2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1037369749616-rj592pe8kl51j8ttblrm73emesoqqjlu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkk6ea2AvUdIXyYILGB3qLCXlIQmyioEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1037369749616-rj592pe8kl51j8ttblrm73emesoqqjlu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

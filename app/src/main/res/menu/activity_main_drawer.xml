@@ -10,26 +10,26 @@
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_history"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/history"
             android:title="History" />
         <item
             android:id="@+id/nav_treatment"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/treatment"
             android:title="Treatment" />
 
         <item
             android:id="@+id/nav_hospitals"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/hospital"
             android:title="Hospitals Nearby" />
 
         <item
             android:id="@+id/nav_about"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/group"
             android:title="About Us" />
 
         <item
             android:id="@+id/nav_privacy"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/padlock"
             android:title="Privacy"/>
 
 

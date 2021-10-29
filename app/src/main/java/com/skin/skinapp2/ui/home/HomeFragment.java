@@ -2,6 +2,7 @@ package com.skin.skinapp2.ui.home;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -26,13 +27,32 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import org.pytorch.IValue;
+import org.pytorch.LiteModuleLoader;
+import org.pytorch.Module;
+import org.pytorch.Tensor;
+import org.pytorch.torchvision.TensorImageUtils;
+import org.pytorch.MemoryFormat;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import androidx.appcompat.app.AppCompatActivity;
 import com.skin.skinapp2.R;
 import com.skin.skinapp2.databinding.FragmentHomeBinding;
 
 import java.util.zip.Inflater;
 
 import static android.app.Activity.RESULT_OK;
+import static org.pytorch.LiteModuleLoader.load;
 
 public class HomeFragment extends Fragment {
 
@@ -41,11 +61,11 @@ public class HomeFragment extends Fragment {
     View root;
     ImageView imageView;
     Button button;
+    Module module = null;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
-
         //binding = FragmentHomeBinding.inflate(inflater, container, false);
         //View root = binding.getRoot();
         root= inflater.inflate(R.layout.fragment_home,container,false);
@@ -74,7 +94,37 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    public static String assetFilePath(Context context, String assetName) throws IOException {
+        File file = new File(context.getFilesDir(), assetName);
+        if (file.exists() && file.length() > 0) {
+            return file.getAbsolutePath();
+        }
+
+        try (InputStream is = context.getAssets().open(assetName)) {
+            try (OutputStream os = new FileOutputStream(file)) {
+                byte[] buffer = new byte[4 * 1024];
+                int read;
+                while ((read = is.read(buffer)) != -1) {
+                    os.write(buffer, 0, read);
+                }
+                os.flush();
+            }
+            return file.getAbsolutePath();
+        }
+    }
+
     private void selectImage() {
+        try {
+            // creating bitmap from packaged into app android asset 'image.jpg',
+            // app/src/main/assets/image.jp
+            // loading serialized torchscript module from packaged into app android asset model.pt,
+            // app/src/model/assets/model.pt
+            //System.out,println(assetFilePath(getActivity(), "mobilenet1.pt"))
+            //System.out.println(assetFilePath(getActivity(), "mobilenet1.pt"));
+            module = load(assetFilePath(getActivity(), "mobilnetv1.ptl"));
+        } catch (IOException e) {
+            Log.e("PytorchHelloWorld", "Error reading assets", e);
+        }
         final CharSequence options [] = {"Take Picture", "Choose From Gallery"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Add Picture");
@@ -103,12 +153,15 @@ public class HomeFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         System.out.println("On Activity Result");
         System.out.println("Request Code: " + requestCode + "Result Code: " + resultCode + "Data: " + data);
+        final Tensor inputTensor;
         try {
             if(requestCode == 1 && resultCode == RESULT_OK) {
                 System.out.println("On Activity Result");
                 Bitmap image = (Bitmap) data.getExtras().get("data");
                 System.out.println("Image Data: " + image);
                 imageView.setImageBitmap(image);
+                inputTensor = TensorImageUtils.bitmapToFloat32Tensor(image,
+                        TensorImageUtils.TORCHVISION_NORM_MEAN_RGB, TensorImageUtils.TORCHVISION_NORM_STD_RGB, MemoryFormat.CHANNELS_LAST);
             } else {
                 Uri selectedImage = data.getData();
                 String[] filePath = {MediaStore.Images.Media.DATA};
@@ -118,8 +171,29 @@ public class HomeFragment extends Fragment {
                 String path = cursor.getString(index);
                 cursor.close();
                 imageView.setImageBitmap(BitmapFactory.decodeFile(path));
+                inputTensor = TensorImageUtils.bitmapToFloat32Tensor(BitmapFactory.decodeFile(path),
+                        TensorImageUtils.TORCHVISION_NORM_MEAN_RGB, TensorImageUtils.TORCHVISION_NORM_STD_RGB, MemoryFormat.CHANNELS_LAST);
 
             }
+            // running the model
+            final Tensor outputTensor = module.forward(IValue.from(inputTensor)).toTensor();
+
+            // getting tensor content as java array of floats
+            final float[] scores = outputTensor.getDataAsFloatArray();
+            for(int i = 0; i < scores.length; i++) {
+                System.out.println("scores " + scores[i]);
+            }
+            float maxScore = -Float.MAX_VALUE;
+            int maxScoreIdx = -1;
+            for (int i = 0; i < scores.length; i++) {
+                if (scores[i] > maxScore) {
+                    maxScore = scores[i];
+                    maxScoreIdx = i;
+                }
+            }
+
+            String className = SkinClasses.SKIN_CLASSES[maxScoreIdx];
+            System.out.println(className);
         } catch(Exception E) {
             E.printStackTrace();
         }

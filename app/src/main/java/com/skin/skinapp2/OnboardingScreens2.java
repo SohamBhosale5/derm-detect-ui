@@ -32,7 +32,7 @@ public class OnboardingScreens2 extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.status_bar_color));
         }
         //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_onboarding_screens2);
+        setContentView(R.layout.onboarding3);
         mSlideViewPager = (ViewPager) findViewById(R.id.ViewPage);
         mDotsLayout = (LinearLayout) findViewById(R.id.dots_layout);
         bt_next = (Button) findViewById(R.id.ButtonNext);
