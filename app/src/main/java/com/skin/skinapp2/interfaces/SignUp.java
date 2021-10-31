@@ -1,7 +1,10 @@
 package com.skin.skinapp2.interfaces;
 
+import com.skin.skinapp2.models.HosptialsNearby;
 import com.skin.skinapp2.models.SignIn;
 import com.skin.skinapp2.models.User;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -17,6 +20,6 @@ public interface SignUp {
     Call<SignIn> signInUser(@Body SignIn signIn);
 
     @GET("/hospitals")
-    Call findHospitals();
+    Call<List<HosptialsNearby>> findHospitals();
 
 }

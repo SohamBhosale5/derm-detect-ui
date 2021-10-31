@@ -36,14 +36,12 @@ public class AboutFragment extends Fragment {
         Element adsElement = new Element();
         View aboutPage = new AboutPage(getActivity())
                 .isRTL(false)
-                .setDescription(" Add descrition about your app")
+                .setDescription("An app intended to provide preliminary ")
                 //.addItem(new Element().setTitle("Version 1.0"))
                 .addGroup("CONNECT WITH US!")
                 .addEmail("sohamsbhosale@gmail.com ")
                 .addWebsite("Your website/")
-                .addYoutube("UCbekhhidkzkGryM7mi5Ys_w")   //Enter your youtube link here (replace with my channel link)
                 .addPlayStore("com.example.SkinApp")   //Replace all this with your package name
-                .addInstagram("jarves.usaram")    //Your instagram id
                 .create();
         return aboutPage;
     }

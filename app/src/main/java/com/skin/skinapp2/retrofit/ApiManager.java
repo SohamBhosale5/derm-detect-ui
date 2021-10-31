@@ -7,6 +7,8 @@ import com.skin.skinapp2.models.HosptialsNearby;
 import com.skin.skinapp2.models.SignIn;
 import com.skin.skinapp2.models.User;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -42,8 +44,10 @@ public class ApiManager {
         signInCall.enqueue(callback);
     }
 
-    public void findHospitals(HosptialsNearby hosptialsNearby, Callback<HosptialsNearby> callback){
-        Call hosptialsNearbyCall = signUp.findHospitals();
+    public void findHospitals(HosptialsNearby hosptialsNearby, Callback<List<HosptialsNearby>> callback){
+        System.out.println("Callback " + callback);
+        Call<List<HosptialsNearby>> hosptialsNearbyCall = signUp.findHospitals();
+        System.out.println("Hospitals Nearby call: " + hosptialsNearbyCall);
         hosptialsNearbyCall.enqueue(callback);
     }
 }

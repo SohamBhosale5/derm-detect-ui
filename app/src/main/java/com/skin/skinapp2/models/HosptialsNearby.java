@@ -1,6 +1,10 @@
 package com.skin.skinapp2.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HosptialsNearby {
+    //private List<HospitalDetails> hospitalDetails;
     private String name;
     private String speciality;
     private String address;
@@ -10,6 +14,7 @@ public class HosptialsNearby {
     private String contact;
 
     public HosptialsNearby(String name, String speciality, String address, String latitude, String logitude, String doctor_name, String contact) {
+        //List<HospitalDetails> hospitalDetails;
         this.name = name;
         this.speciality = speciality;
         this.address = address;
@@ -17,6 +22,10 @@ public class HosptialsNearby {
         this.logitude = logitude;
         this.doctor_name = doctor_name;
         this.contact = contact;
+    }
+
+    public HosptialsNearby(){
+
     }
 
     public void setName(String name) {

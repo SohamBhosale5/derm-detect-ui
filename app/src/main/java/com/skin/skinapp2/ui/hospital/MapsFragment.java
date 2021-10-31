@@ -21,8 +21,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.skin.skinapp2.MainApplication;
 import com.skin.skinapp2.R;
 import com.skin.skinapp2.SignInPage;
+import com.skin.skinapp2.models.HosptialsNearby;
 import com.skin.skinapp2.models.SignIn;
 import com.skin.skinapp2.navigation_drawer;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,6 +65,35 @@ public class MapsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        HosptialsNearby hospitalsNearby = new HosptialsNearby();
+        MainApplication.apiManager.findHospitals(hospitalsNearby, new Callback<List<HosptialsNearby>>() {
+            @Override
+            public void onResponse(Call<List<HosptialsNearby>> call, Response<List<HosptialsNearby>> response) {
+                System.out.println("On Response Hosptials");
+                List<HosptialsNearby> hospitals = response.body();
+//                            sharedPreferences = getSharedPreferences("MyPref",MODE_PRIVATE);
+//                            editor = sharedPreferences.edit();
+                System.out.println("Response Hospitals body " + response.body().toString());
+                if(response.isSuccessful() && hospitals != null){
+                    Toast.makeText(getContext(),"Maps Loading Successful!", Toast.LENGTH_LONG).show();
+                    //editor.putBoolean("IsSignInSuccessful", true);
+                    //editor.commit();
+                    //Intent intent = new Intent(sign_up_page.this, SignInPage.class);
+                    //startActivity(intent);
+                    //Intent intent = new Intent(SignInPage.this, navigation_drawer.class);
+                    //startActivity(intent);
+
+                } else {
+                    System.out.println("Response  = " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<HosptialsNearby>> call, Throwable t) {
+                System.out.println("On Failure " + t);
+
+            }
+        });
         return inflater.inflate(R.layout.fragment_maps, container, false);
     }
 
