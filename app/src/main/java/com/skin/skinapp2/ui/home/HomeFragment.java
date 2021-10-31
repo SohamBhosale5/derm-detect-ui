@@ -1,6 +1,10 @@
 package com.skin.skinapp2.ui.home;
 
 import android.Manifest;
+import android.app.AlarmManager ;
+import android.app.Notification ;
+import android.app.NotificationManager ;
+import android.app.PendingIntent ;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -49,6 +53,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.skin.skinapp2.R;
 import com.skin.skinapp2.databinding.FragmentHomeBinding;
 
+import java.util.Calendar;
 import java.util.zip.Inflater;
 
 import static android.app.Activity.RESULT_OK;
@@ -194,6 +199,17 @@ public class HomeFragment extends Fragment {
 
             String className = SkinClasses.SKIN_CLASSES[maxScoreIdx];
             System.out.println(className);
+
+            AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
+            Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
+            notificationIntent.addCategory("android.intent.category.DEFAULT");
+
+            PendingIntent broadcast = PendingIntent.getBroadcast(getContext(), 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.SECOND, 15);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
         } catch(Exception E) {
             E.printStackTrace();
         }

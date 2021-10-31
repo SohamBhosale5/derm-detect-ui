@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 public class OnboardingScreens2 extends AppCompatActivity {
     private ViewPager mSlideViewPager;
+    SharedPreferences sharedPreference;
     private LinearLayout mDotsLayout;
     private SliderAdapter sliderAdapter;
     Button bt_next;
@@ -22,10 +24,14 @@ public class OnboardingScreens2 extends AppCompatActivity {
     private TextView[] mDots;
     private int mCurrentPage;
     Window window;
+    boolean signupstatus=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //For hiding title bar
+        sharedPreference = getSharedPreferences("MyPref",MODE_PRIVATE);
+        signupstatus = sharedPreference.getBoolean("IsSignInSuccessful",false);
+
         getSupportActionBar().hide();
         if(Build.VERSION.SDK_INT >= 21) {
             window = this.getWindow();
@@ -45,8 +51,14 @@ public class OnboardingScreens2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String btn_text = bt_next.getText().toString();
+                Intent intent;
                 if(btn_text.equals("Finish")){
-                    Intent intent = new Intent(OnboardingScreens2.this, SignInPage.class);
+                    if(signupstatus) {
+                        intent = new Intent(OnboardingScreens2.this, SignInPage.class);}
+
+                    else{
+                        intent = new Intent(OnboardingScreens2.this, sign_up_page.class);
+                    }
                     startActivity(intent);
                 } else {
                     mSlideViewPager.setCurrentItem(mCurrentPage+1);
