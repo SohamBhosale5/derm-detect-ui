@@ -9,7 +9,7 @@ public class HosptialsNearby {
     private String speciality;
     private String address;
     private String latitude;
-    private String logitude;
+    private String longitute;
     private String doctor_name;
     private String contact;
 
@@ -19,13 +19,41 @@ public class HosptialsNearby {
         this.speciality = speciality;
         this.address = address;
         this.latitude = latitude;
-        this.logitude = logitude;
+        this.longitute = logitude;
         this.doctor_name = doctor_name;
         this.contact = contact;
     }
 
     public HosptialsNearby(){
 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongitude() {
+        return longitute;
+    }
+
+    public String getDoctor_name() {
+        return doctor_name;
+    }
+
+    public String getContact() {
+        return contact;
     }
 
     public void setName(String name) {
@@ -44,8 +72,8 @@ public class HosptialsNearby {
         this.latitude = latitude;
     }
 
-    public void setLogitude(String logitude) {
-        this.logitude = logitude;
+    public void setLongitude(String longitude) {
+        this.longitute = longitude;
     }
 
     public void setDoctor_name(String doctor_name) {

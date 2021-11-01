@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.skin.skinapp2.interfaces.SignUp;
 import com.skin.skinapp2.models.HosptialsNearby;
+import com.skin.skinapp2.models.Recommendations;
 import com.skin.skinapp2.models.SignIn;
 import com.skin.skinapp2.models.User;
 
@@ -50,4 +51,13 @@ public class ApiManager {
         System.out.println("Hospitals Nearby call: " + hosptialsNearbyCall);
         hosptialsNearbyCall.enqueue(callback);
     }
+
+    public void recommendations(Recommendations recommendations, Callback<List<Recommendations>> callback){
+        System.out.println("Callback " + callback);
+        Call<List<Recommendations>> recommendationsCall = signUp.getRecommendations(recommendations);
+        System.out.println("Recommendations  call: " + recommendationsCall);
+        recommendationsCall.enqueue(callback);
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package com.skin.skinapp2.interfaces;
 
 import com.skin.skinapp2.models.HosptialsNearby;
+import com.skin.skinapp2.models.Recommendations;
 import com.skin.skinapp2.models.SignIn;
 import com.skin.skinapp2.models.User;
 
@@ -21,5 +22,8 @@ public interface SignUp {
 
     @GET("/hospitals")
     Call<List<HosptialsNearby>> findHospitals();
+
+    @POST("/recommendations")
+    Call<List<Recommendations>> getRecommendations(@Body Recommendations recommendations);
 
 }

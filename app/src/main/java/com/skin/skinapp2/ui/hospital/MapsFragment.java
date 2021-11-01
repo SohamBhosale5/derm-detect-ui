@@ -25,6 +25,7 @@ import com.skin.skinapp2.models.HosptialsNearby;
 import com.skin.skinapp2.models.SignIn;
 import com.skin.skinapp2.navigation_drawer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -32,7 +33,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MapsFragment extends Fragment {
-
+    ArrayList<Double> lat = new ArrayList<Double>();
+    ArrayList<Double> longit = new ArrayList<Double>();
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
         /**
@@ -46,16 +48,25 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            LatLng bothell = new LatLng(47.760113, -122.205444);
+            System.out.println("Inside onMapReady");
+            //System.out.println("Hospitals details"+hospitals);
+            /*for(int i = 0; i < lat.size(); i++){
+                System.out.println("Latitude and Longitude On Map Ready");
+                System.out.println(lat.get(i) + " " + longit.get(i));
+            }*/
+            /*LatLng bothell = new LatLng(47.760113, -122.205444);
             LatLng one = new LatLng(47.770332, -122.223951);
             LatLng two = new LatLng(47.774616, -122.205770);
-            LatLng three = new LatLng(47.825638, -122.182774);
-
+            LatLng three = new LatLng(47.825638, -122.182774);*/
+            /*for(int i = 0; i < lat.size(); i++) {
+                googleMap.addMarker(new MarkerOptions().position(new LatLng(lat.get(i), longit.get(i))).title("Marker in " + " Evergreen Hospital").icon(BitmapDescriptorFactory.fromResource((R.drawable.hospital_64))));
+            }*/
             googleMap.addMarker(new MarkerOptions().position(bothell).title("Marker in " + " Evergreen Hospital").icon(BitmapDescriptorFactory.fromResource((R.drawable.hospital_64))));
-            googleMap.addMarker(new MarkerOptions().position(one).title("Marker in " + one).icon(BitmapDescriptorFactory.fromResource((R.drawable.hospital_64))));
-            googleMap.addMarker(new MarkerOptions().position(two).title("Marker in " + two).icon(BitmapDescriptorFactory.fromResource((R.drawable.hospital_64))));
-            googleMap.addMarker(new MarkerOptions().position(three).title("Marker in " + three).icon(BitmapDescriptorFactory.fromResource((R.drawable.hospital_64))));
+            //googleMap.addMarker(new MarkerOptions().position(one).title("Marker in " + one).icon(BitmapDescriptorFactory.fromResource((R.drawable.hospital_64))));
+            //googleMap.addMarker(new MarkerOptions().position(two).title("Marker in " + two).icon(BitmapDescriptorFactory.fromResource((R.drawable.hospital_64))));
+            //googleMap.addMarker(new MarkerOptions().position(three).title("Marker in " + three).icon(BitmapDescriptorFactory.fromResource((R.drawable.hospital_64))));
             //googleMap.moveCamera(CameraUpdateFactory.newLatLng(bothell));
+            //googleMap.addMarker(new MarkerOptions().position(new LatLng(lat.get(i), longit.get(i))).title("Marker in " + " Evergreen Hospital").icon(BitmapDescriptorFactory.fromResource((R.drawable.hospital_64))));
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom((new LatLng(47.760113, -122.205444)),15.0f));
         }
     };
@@ -65,6 +76,7 @@ public class MapsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        System.out.println("Inside onCreatedView");
         HosptialsNearby hospitalsNearby = new HosptialsNearby();
         MainApplication.apiManager.findHospitals(hospitalsNearby, new Callback<List<HosptialsNearby>>() {
             @Override
@@ -75,13 +87,29 @@ public class MapsFragment extends Fragment {
 //                            editor = sharedPreferences.edit();
                 System.out.println("Response Hospitals body " + response.body().toString());
                 if(response.isSuccessful() && hospitals != null){
-                    Toast.makeText(getContext(),"Maps Loading Successful!", Toast.LENGTH_LONG).show();
-                    //editor.putBoolean("IsSignInSuccessful", true);
-                    //editor.commit();
-                    //Intent intent = new Intent(sign_up_page.this, SignInPage.class);
-                    //startActivity(intent);
-                    //Intent intent = new Intent(SignInPage.this, navigation_drawer.class);
-                    //startActivity(intent);
+                    //Toast.makeText(getContext(),"Maps Loading Successful!", Toast.LENGTH_LONG).show();
+                    for(HosptialsNearby hosptial : hospitals){
+                        String name = hosptial.getName();
+                        String speciality = hosptial.getSpeciality();
+                        String address =hosptial.getAddress();
+                        String latitude = hosptial.getLatitude();
+                        lat.add(Double.parseDouble(latitude));
+                        String longitude = hosptial.getLongitude();
+                        longit.add(Double.parseDouble(longitude));
+                        String doctor_name = hosptial.getDoctor_name();
+                        String contact  = hosptial.getContact();
+                        System.out.println("Name ==========>>>"+name);
+                        System.out.println("speciality ==========>>>"+speciality);
+                        System.out.println("address ==========>>>"+address);
+                        System.out.println("latitude ==========>>>"+latitude);
+                        System.out.println("logitude ==========>>>"+longitude);
+                        System.out.println("doctor_name ==========>>>"+doctor_name);
+                    }
+                    System.out.println("Hospitals details"+hospitals);
+                    for(int i = 0; i < lat.size(); i++){
+                        System.out.println("Latitude and Longitude");
+                        System.out.println(lat.get(i) + " " + longit.get(i));
+                    }
 
                 } else {
                     System.out.println("Response  = " + response.code());
