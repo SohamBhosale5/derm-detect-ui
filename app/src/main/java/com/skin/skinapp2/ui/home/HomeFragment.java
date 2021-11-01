@@ -201,6 +201,7 @@ public class HomeFragment extends Fragment {
             String className = SkinClasses.SKIN_CLASSES[maxScoreIdx];
             SharedPreferences sharedPreferences = getContext().getSharedPreferences("MyPref", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
+            System.out.println("ClassName " + className);
             editor.putString("DiseaseName", className);
             editor.commit();
 

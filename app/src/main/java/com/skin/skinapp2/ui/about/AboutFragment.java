@@ -36,7 +36,7 @@ public class AboutFragment extends Fragment {
         Element adsElement = new Element();
         View aboutPage = new AboutPage(getActivity())
                 .isRTL(false)
-                .setDescription("An app intended to provide preliminary ")
+                .setDescription("DermDetect, a go-to app for preliminary analysis and care for 7 significant cancerous and noncancerous Skin Lesion classes.")
                 //.addItem(new Element().setTitle("Version 1.0"))
                 .addGroup("CONNECT WITH US!")
                 .addEmail("sohamsbhosale@gmail.com ")

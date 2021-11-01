@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
                         String token = task.getResult();
 
                         // Log and toast
-                        String msg = "Token " + token;
-                        Log.d(TAG, msg);
-                        //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        String msg = token;
+                        Log.d("Token ", msg);
+                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
         Handler handler = new Handler();

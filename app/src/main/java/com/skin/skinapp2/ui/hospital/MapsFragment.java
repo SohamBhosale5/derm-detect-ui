@@ -61,8 +61,8 @@ public class MapsFragment extends Fragment {
             /*for(int i = 0; i < lat.size(); i++) {
                 googleMap.addMarker(new MarkerOptions().position(new LatLng(lat.get(i), longit.get(i))).title("Marker in " + " Evergreen Hospital").icon(BitmapDescriptorFactory.fromResource((R.drawable.hospital_64))));
             }*/
-            googleMap.addMarker(new MarkerOptions().position(bothell).title("Marker in " + " Evergreen Hospital").icon(BitmapDescriptorFactory.fromResource((R.drawable.hospital_64))));
-            //googleMap.addMarker(new MarkerOptions().position(one).title("Marker in " + one).icon(BitmapDescriptorFactory.fromResource((R.drawable.hospital_64))));
+            googleMap.addMarker(new MarkerOptions().position(new LatLng(47.762030, -122.208760)).title("The Everett Clinic Dermatology").icon(BitmapDescriptorFactory.fromResource((R.drawable.hospital_64))));
+            googleMap.addMarker(new MarkerOptions().position(new LatLng(47.804390, -122.206790)).title("Susan Leu, M.D.").icon(BitmapDescriptorFactory.fromResource((R.drawable.hospital_64))));
             //googleMap.addMarker(new MarkerOptions().position(two).title("Marker in " + two).icon(BitmapDescriptorFactory.fromResource((R.drawable.hospital_64))));
             //googleMap.addMarker(new MarkerOptions().position(three).title("Marker in " + three).icon(BitmapDescriptorFactory.fromResource((R.drawable.hospital_64))));
             //googleMap.moveCamera(CameraUpdateFactory.newLatLng(bothell));
